@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Rashmi</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    form {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 16px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #00c9a7;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #00b298;
+    }
+
+    .popup {
+      display: none;
+      background: #00c9a7;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      color: white;
+      font-weight: bold;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      animation: fadeInOut 3s ease forwards;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Contact Me</h1>
+<!-- 🔗 Connect With Me Banner -->
+<div class="connect-banner" data-aos="zoom-in">
+  <img src="image1.png" alt="Connect With Me" class="connect-img">
+</div>
+
+  <!-- ✅ Success popup -->
+  <div id="popup" class="popup">Message sent successfully!</div>
+
+  <!-- ✅ Contact Form -->
+  <form id="contact-form" action="https://formspree.io/f/mnnpkzzj" method="POST">
+    <input type="text" name="name" placeholder="Your Name" required />
+    <input type="email" name="email" placeholder="Your Email" required />
+    <textarea name="message" placeholder="Your Message" required></textarea>
+    <button type="submit">Send</button>
+  </form>
+
+  <br />
+  <a href="index.html" style="color:#00c9a7;">← Back to Home</a>
+
+  <script>
+    const form = document.getElementById("contact-form");
+    const popup = document.getElementById("popup");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      fetch(form.action, {
+        method: form.method,
+        body: formData,
+        headers: {
+          Accept: "application/json"
+        }
+      }).then(response => {
+        if (response.ok) {
+          popup.style.display = "block";
+          setTimeout(() => {
+            popup.style.display = "none";
+            window.location.href = "thank-you.html"; // ✅ Redirect after message
+          }, 2500);
+          form.reset();
+        } else {
+          alert("Oops! Something went wrong.");
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
